@@ -1,0 +1,2434 @@
+/* ======================================================================
+   UnElektr — dizayn tizimi
+   Mavzu .ue-root[data-theme] orqali: "light" | "dark" (auto — widget tizimdan aniqlaydi)
+   ====================================================================== */
+.ue-root {
+  --bg: #edf1f7;
+  --surface: #ffffff;
+  --surface-2: #f6f8fb;
+  --surface-3: #ebeff5;
+  --border: #e2e7ef;
+  --border-strong: #cdd5e1;
+  --text: #0f1b2d;
+  --muted: #5a6a80;
+  --faint: #8b98aa;
+  --primary: #1f62d8;
+  --primary-hover: #1851b6;
+  --primary-soft: #e8f0fd;
+  --primary-line: #b9cff6;
+  --on-primary: #ffffff;
+  --accent: #f5a524;
+  --accent-soft: #fff3dc;
+  --success: #138a4a;
+  --success-soft: #e4f5eb;
+  --danger: #d23b3b;
+  --danger-soft: #fdeded;
+  --danger-line: #f1c0c0;
+  --warning: #b36b00;
+  --warning-soft: #fff5e3;
+  --violet: #7446d6;
+  --header: #ffffff;
+  --status: #ffffff;
+  --map-bg: #e3e8ef;
+  --shadow-sm: 0 1px 2px rgba(15, 27, 45, 0.06);
+  --shadow: 0 4px 14px rgba(15, 27, 45, 0.08);
+  --shadow-lg: 0 14px 38px rgba(15, 27, 45, 0.18);
+  --ring: 0 0 0 3px rgba(31, 98, 216, 0.22);
+  --r-sm: 6px;
+  --r: 10px;
+  --r-lg: 14px;
+  --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Cascadia Mono", Consolas, "SFMono-Regular", monospace;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 520px;
+  font: 13px/1.45 var(--font);
+  color: var(--text);
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+  container-type: inline-size;
+}
+
+.ue-root[data-theme="dark"] {
+  --bg: #0a101b;
+  --surface: #111a29;
+  --surface-2: #152033;
+  --surface-3: #1b293f;
+  --border: #22314a;
+  --border-strong: #31445f;
+  --text: #e7edf6;
+  --muted: #9babc1;
+  --faint: #6d7f98;
+  --primary: #4d8eff;
+  --primary-hover: #6ea3ff;
+  --primary-soft: rgba(77, 142, 255, 0.15);
+  --primary-line: rgba(77, 142, 255, 0.45);
+  --on-primary: #ffffff;
+  --accent: #fbbf24;
+  --accent-soft: rgba(251, 191, 36, 0.14);
+  --success: #3ccf86;
+  --success-soft: rgba(60, 207, 134, 0.14);
+  --danger: #ff6b6b;
+  --danger-soft: rgba(255, 107, 107, 0.12);
+  --danger-line: rgba(255, 107, 107, 0.4);
+  --warning: #f2aa4c;
+  --warning-soft: rgba(242, 170, 76, 0.13);
+  --violet: #a68bfa;
+  --header: #0e1624;
+  --status: #0e1624;
+  --map-bg: #0d1522;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --ring: 0 0 0 3px rgba(77, 142, 255, 0.3);
+  color-scheme: dark;
+}
+
+.ue-root *,
+.ue-root *::before,
+.ue-root *::after {
+  box-sizing: border-box;
+}
+/* :where — ustunligi bitta klassga teng: keyingi komponent klasslari (.ue-rb va h.k.) shrift o'lchamini belgilay oladi */
+.ue-root :where(button, input, select, textarea) {
+  font: inherit;
+  color: inherit;
+}
+.ue-root :where(button) {
+  cursor: pointer;
+}
+.ue-root :focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+.ue-ic {
+  flex-shrink: 0;
+  display: block;
+}
+.ue-root ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.ue-root ::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+.ue-root ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ====================================================================== sarlavha */
+.ue-header {
+  --h: 36px; /* sarlavhadagi barcha boshqaruv elementlarining balandligi */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 60px;
+  padding: 0 14px 0 16px;
+  background: var(--header);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 6;
+}
+.ue-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.ue-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(140deg, #2b74f0 0%, #1a4fc0 55%, #11348a 100%);
+  box-shadow: 0 4px 12px rgba(31, 98, 216, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+.ue-logo .ue-ic {
+  color: #ffd257;
+  fill: #ffd257;
+}
+.ue-brand-matn {
+  display: grid;
+  line-height: 1.15;
+  min-width: 0;
+}
+.ue-brand-matn b {
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.ue-brand-matn span {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ue-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: var(--h);
+  padding: 3px;
+  background: var(--surface-3);
+  border-radius: 10px;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+.ue-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 100%;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 550;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.ue-tabs button:hover {
+  color: var(--text);
+}
+.ue-tabs button.faol {
+  background: var(--surface);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--border);
+}
+
+.ue-search {
+  position: relative;
+  flex: 1 1 220px;
+  min-width: 160px;
+  max-width: 340px;
+  margin-left: auto;
+}
+.ue-search > .ue-ic {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--faint);
+  pointer-events: none;
+}
+.ue-search input {
+  width: 100%;
+  height: var(--h);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0 12px 0 36px;
+  background: var(--surface-2);
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.ue-search input::placeholder {
+  color: var(--faint);
+}
+.ue-search input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: var(--ring);
+}
+.ue-search-hits {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  top: 42px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  max-height: 320px;
+  overflow: auto;
+  box-shadow: var(--shadow-lg);
+}
+.ue-search-hits button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 7px;
+}
+.ue-search-hits button:hover {
+  background: var(--primary-soft);
+}
+.ue-search-hits .nom {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 550;
+}
+.ue-yorliq {
+  color: var(--muted);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.ue-search-hits .bosh {
+  padding: 10px;
+}
+.ue-hit-ic {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  background: var(--surface-3);
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.ue-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.ue-seg {
+  display: inline-flex;
+  padding: 2px;
+  background: var(--surface-3);
+  border-radius: 9px;
+  gap: 2px;
+}
+.ue-seg button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 30px;
+  height: 28px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ue-seg button:hover {
+  color: var(--text);
+}
+.ue-seg button.faol {
+  background: var(--surface);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--border);
+}
+/* ---------------------------------------------------------------- ochiladigan ro'yxat (Tanlov.tsx) */
+.ue-dd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--h, 36px);
+  padding: 0 10px 0 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.ue-dd-btn > .ue-ic:first-child {
+  color: var(--primary);
+}
+.ue-dd-btn:hover {
+  border-color: var(--border-strong);
+  background: var(--surface);
+}
+.ue-dd-btn.ochiq,
+.ue-dd-btn:focus-visible {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: var(--ring);
+}
+.ue-dd-qiymat {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.ue-dd-chevron {
+  color: var(--faint);
+  transition: transform 0.15s;
+}
+.ue-dd-btn.ochiq .ue-dd-chevron {
+  transform: rotate(180deg);
+}
+.ue-dd-btn.til {
+  width: auto;
+}
+.ue-dd-btn.til .ue-dd-qiymat {
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+.ue-dd-btn.mavzu {
+  width: 172px;
+}
+.ue-dd-btn.forma {
+  width: 100%;
+  height: 36px;
+  border-color: var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+}
+.ozgargan .ue-dd-btn.forma {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.ue-field .ue-dd-btn.forma {
+  color: var(--text);
+}
+.ue-dd-btn.fon {
+  width: 240px;
+  height: 46px;
+  padding-left: 5px;
+  font-size: 13px;
+}
+
+.ue-dd-menu {
+  position: absolute;
+  z-index: 80;
+  overflow: auto;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  animation: ue-menyu 0.14s ease-out;
+}
+@keyframes ue-menyu {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+.ue-dd-guruh + .ue-dd-guruh {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.ue-dd-sarlavha {
+  padding: 8px 10px 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.ue-dd-qatorlar {
+  display: grid;
+  gap: 2px;
+}
+.ue-dd-opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px 7px 7px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.ue-dd-opt.faol {
+  background: var(--surface-2);
+}
+.ue-dd-opt.tanlangan {
+  background: var(--primary-soft);
+}
+.ue-dd-ic {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--surface-3);
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.ue-dd-opt.tanlangan .ue-dd-ic {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.ue-dd-matn {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+.ue-dd-matn .nomi {
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ue-dd-matn .izoh {
+  font-size: 11px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ue-dd-opt.tanlangan .nomi {
+  color: var(--primary);
+}
+.ue-dd-belgi {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* rasmli (fon xaritalar) */
+.ue-dd-rasm {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 7px;
+  background: var(--surface-3);
+  flex-shrink: 0;
+}
+.ue-dd-rasm img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 256px;
+  height: 256px;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.ue-dd-rasm.bosh {
+  background-color: var(--surface);
+  background-image: linear-gradient(45deg, var(--surface-3) 25%, transparent 25%, transparent 75%, var(--surface-3) 75%),
+    linear-gradient(45deg, var(--surface-3) 25%, transparent 25%, transparent 75%, var(--surface-3) 75%);
+  background-size: 14px 14px;
+  background-position: 0 0, 7px 7px;
+}
+.ue-dd-rasm.kichik {
+  width: 54px;
+  height: 34px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.ue-dd-rasm.kichik img {
+  width: 160px;
+  height: 160px;
+}
+.ue-dd-menu.rasmli {
+  padding: 8px;
+}
+.ue-dd-tor {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 2px 4px;
+}
+.ue-dd-tor .ue-dd-opt {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 5px 5px 7px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.ue-dd-tor .ue-dd-rasm {
+  width: 100%;
+  height: 74px;
+  border-radius: 6px;
+}
+.ue-dd-tor .ue-dd-opt.faol {
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+.ue-dd-tor .ue-dd-opt.tanlangan {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+  background: var(--primary-soft);
+}
+.ue-dd-tor .ue-dd-matn {
+  padding: 0 3px;
+}
+.ue-dd-tor .ue-dd-belgi {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--shadow);
+}
+
+.ue-user {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: var(--h);
+  padding: 2px 12px 2px 2px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  white-space: nowrap;
+}
+.ue-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg, var(--primary), #6a4fd6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.ue-men-matn {
+  display: grid;
+  line-height: 1.15;
+}
+.ue-men-matn span:first-child {
+  font-weight: 600;
+  font-size: 12px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ue-men-matn span:last-child {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* ====================================================================== tasma (ribbon) */
+.ue-ribbon {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 8px 10px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* balandlik qat'iy: bo'limlar almashganda tasma (va xarita) sakramaydi */
+  height: 102px;
+  position: relative;
+  z-index: 5;
+  box-shadow: var(--shadow-sm);
+}
+.ue-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 10px;
+  position: relative;
+  flex-shrink: 0;
+}
+.ue-group + .ue-group::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--border);
+}
+.ue-group-items {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+.ue-group-items.ustun {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 4px;
+}
+.ue-group-name {
+  height: 14px;
+  line-height: 14px;
+  margin-top: 2px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+  white-space: nowrap;
+}
+.ue-rb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 70px;
+  max-width: 128px;
+  height: 68px;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--r);
+  background: transparent;
+  color: var(--text);
+  font-size: 11.5px;
+  font-weight: 550;
+  line-height: 1.15;
+  text-align: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.ue-rb .ue-ic {
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.ue-rb > span {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.ue-rb:hover {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+.ue-rb:hover .ue-ic {
+  color: var(--primary);
+}
+.ue-rb.primary .ue-ic {
+  color: var(--primary);
+}
+.ue-rb.xavfli .ue-ic {
+  color: var(--danger);
+}
+.ue-rb.faol {
+  background: var(--primary-soft);
+  border-color: var(--primary-line);
+  color: var(--primary);
+}
+.ue-rb.faol .ue-ic {
+  color: var(--primary);
+}
+.ue-rb.yuborish {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.ue-rb.yuborish .ue-ic {
+  color: var(--warning);
+}
+.ue-rb .ue-badge {
+  position: absolute;
+}
+.ue-izoh-guruh {
+  justify-content: center;
+}
+.ue-izoh-guruh p {
+  margin: 0;
+  max-width: 250px;
+  font-size: 11.5px;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.ue-izoh-guruh p .ue-ic {
+  color: var(--primary);
+  margin-top: 1px;
+}
+
+.ue-switch {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+  user-select: none;
+}
+.ue-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.ue-switch .iz {
+  width: 30px;
+  height: 17px;
+  border-radius: 999px;
+  background: var(--border-strong);
+  position: relative;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.ue-switch .iz::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s;
+}
+.ue-switch input:checked + .iz {
+  background: var(--primary);
+}
+.ue-switch input:checked + .iz::after {
+  transform: translateX(13px);
+}
+.ue-switch input:focus-visible + .iz {
+  box-shadow: var(--ring);
+}
+
+/* ====================================================================== tugmalar */
+.ue-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 8px;
+  font-weight: 550;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, color 0.15s;
+}
+.ue-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.ue-btn.primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 1px 2px rgba(31, 98, 216, 0.3);
+}
+.ue-btn.primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: var(--on-primary);
+}
+.ue-btn.xavfli {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+.ue-btn.xavfli:hover {
+  filter: brightness(1.08);
+  color: #fff;
+}
+.ue-btn.ghost {
+  border-color: transparent;
+  background: transparent;
+}
+.ue-btn.ghost:hover {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+.ue-btn.wide {
+  width: 100%;
+  margin-top: 10px;
+  height: 38px;
+}
+.ue-btn.kichik {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 12px;
+  border-radius: 7px;
+}
+.ue-btn.faol {
+  background: var(--primary-soft);
+  border-color: var(--primary-line);
+  color: var(--primary);
+}
+.ue-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.ue-icon-btn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+}
+.ue-icon-btn:hover {
+  background: var(--surface-3);
+  color: var(--text);
+}
+.ue-spin {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: ue-aylan 0.8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes ue-aylan {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ====================================================================== asosiy qism */
+/*
+ * Chap panel va pastki jadval xarita YONIDA (oqimda) turadi: ochilganda xaritani surib, uni toraytiradi.
+ * Ichki tarkib o'z to'liq o'lchamida qoladi — harakat davomida faqat qirqiladi, qayta joylashmaydi.
+ *   --ue-chap-w — panelning to'liq kengligi, --ue-chap — hozir egallab turgan joyi (yig'ilganda 44px).
+ */
+.ue-body {
+  --ue-chap-w: 252px;
+  --ue-chap: var(--ue-chap-w);
+  --ue-harakat: 0.3s cubic-bezier(0.2, 0, 0, 1);
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+.ue-body.chap-yigilgan {
+  --ue-chap: 44px;
+}
+
+/* --- chap panel: qatlamlar */
+.ue-contents {
+  position: relative;
+  flex: 0 0 auto;
+  z-index: 5;
+  width: var(--ue-chap);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  transition: width var(--ue-harakat);
+}
+.ue-contents-ichki {
+  width: var(--ue-chap-w);
+  flex-shrink: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  transition: opacity 0.22s ease 0.08s, visibility 0s;
+}
+.ue-contents.yigilgan .ue-contents-ichki {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.12s ease, visibility 0s linear 0.3s;
+}
+.ue-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 10px 0 14px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 650;
+  flex-shrink: 0;
+}
+.ue-panel-head .ue-ic {
+  color: var(--primary);
+}
+.ue-panel-head > span {
+  flex: 1;
+}
+.ue-panel-body {
+  padding: 12px;
+  overflow: auto;
+  flex: 1;
+}
+.ue-section {
+  margin-bottom: 16px;
+}
+.ue-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 2px 6px;
+}
+.ue-jadval-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 6px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.ue-jadval-btn:hover {
+  background: var(--primary-soft);
+}
+.ue-qatlam {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s;
+}
+.ue-qatlam:hover {
+  background: var(--surface-2);
+}
+.ue-qatlam.ochiq .nomi {
+  color: var(--faint);
+}
+.ue-qatlam .nomi {
+  flex: 1;
+  min-width: 0;
+  font-weight: 550;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ue-soni {
+  min-width: 34px;
+  text-align: center;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.ue-cb {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.ue-cb input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ue-cb span {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface);
+  transition: background 0.12s, border-color 0.12s;
+  pointer-events: none;
+}
+.ue-cb input:checked + span {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.ue-cb input:checked + span::after {
+  content: "";
+  position: absolute;
+  left: 4.5px;
+  top: 1.5px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.ue-cb input:focus-visible + span {
+  box-shadow: var(--ring);
+}
+.ue-swatch {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.ue-belgi {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.ue-belgi-tp {
+  border-radius: 50%;
+  background: #ffd60a;
+  border: 2px solid #1f3b70;
+}
+.ue-belgi-ps {
+  background: #ffd166;
+  border: 2px solid #7a1d1d;
+  border-radius: 2px;
+}
+.ue-belgi-tm {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 12px solid #d62828;
+}
+.ue-legend-izoh {
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: var(--r);
+  background: var(--surface-2);
+  border: 1px dashed var(--border-strong);
+  color: var(--muted);
+  font-size: 11.5px;
+  display: grid;
+  gap: 6px;
+}
+.ue-legend-izoh div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ue-legend-chiziq {
+  width: 18px;
+  border-top: 3px dashed var(--muted);
+}
+/* yig'ilganda panelning faqat o'ng chetidagi 44px ko'rinadi — tasma o'sha yerda */
+.ue-side-rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  gap: 4px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.14s ease, visibility 0s linear 0.14s;
+}
+.ue-contents.yigilgan .ue-side-rail {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.2s ease 0.12s, visibility 0s;
+}
+
+/* --- markaz: xarita */
+.ue-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+.ue-map-host {
+  flex: 1;
+  min-height: 200px;
+  position: relative;
+  background: var(--map-bg);
+}
+.ue-embedded-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--map-bg);
+  z-index: 1;
+}
+.ue-map-note {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(2px);
+  z-index: 3;
+  padding: 24px;
+  text-align: center;
+  pointer-events: none;
+}
+.ue-map-note-karta {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  max-width: 420px;
+  padding: 22px 26px;
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  color: var(--muted);
+}
+.ue-map-note-karta .ue-spin {
+  width: 22px;
+  height: 22px;
+  color: var(--primary);
+}
+/* --- yuklanish: xarita ochilayotganda (markazda) */
+.ue-yuk-ekran {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  /* ostidagi xarita xira bo'lib ko'rinib turadi */
+  background:
+    radial-gradient(circle at 50% 45%, var(--primary-soft), transparent 50%),
+    color-mix(in srgb, var(--bg) 58%, transparent);
+  backdrop-filter: blur(2px) saturate(0.6);
+  -webkit-backdrop-filter: blur(2px) saturate(0.6);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+}
+.ue-yuk-ekran.faol {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease, visibility 0s;
+}
+.ue-yuk-belgi {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+}
+.ue-yuk-belgi::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow), 0 0 0 1px var(--primary-line);
+}
+.ue-yuk-belgi .ue-ic {
+  position: relative;
+  animation: ue-chaqnash 1.6s ease-in-out infinite;
+}
+/* aylanuvchi yoy */
+.ue-yuk-yoy {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: var(--primary);
+  border-right-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  animation: ue-aylan 1.1s cubic-bezier(0.5, 0.15, 0.5, 0.85) infinite;
+}
+/* tarqaluvchi to'lqinlar */
+.ue-yuk-tolqin {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  opacity: 0;
+  animation: ue-tolqin 2.2s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+}
+.ue-yuk-tolqin.ikkinchi {
+  animation-delay: 1.1s;
+}
+.ue-yuk-matn {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  text-align: center;
+}
+.ue-yuk-matn b {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text);
+}
+.ue-yuk-matn span {
+  font-size: 12px;
+  color: var(--muted);
+}
+@keyframes ue-tolqin {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+@keyframes ue-chaqnash {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+}
+
+/* --- yuklanish: ish davomida (xaritani to'smaydi) — tepadagi chiziq va kichik yozuv */
+.ue-yuk-chiziq {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 4;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.ue-yuk-chiziq.faol {
+  opacity: 1;
+}
+.ue-yuk-chiziq::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 35%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary) 30%, var(--primary) 70%, transparent);
+  animation: ue-chiziq 1.25s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes ue-chiziq {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(290%);
+  }
+}
+.ue-yuk-pill {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px 7px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  font-size: 12.5px;
+  font-weight: 550;
+  color: var(--text);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: ue-pill-kir 0.25s cubic-bezier(0.2, 0, 0, 1);
+  transition: top 0.2s ease;
+}
+/* rejim belgisi tepada bo'lsa — uning ostida */
+.ue-map-chip ~ .ue-yuk-pill {
+  top: 58px;
+}
+.ue-yuk-halqa {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-soft);
+  border-top-color: var(--primary);
+  animation: ue-aylan 0.8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes ue-pill-kir {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ue-yuk-tolqin,
+  .ue-yuk-belgi .ue-ic {
+    animation: none;
+  }
+  .ue-yuk-yoy,
+  .ue-yuk-halqa,
+  .ue-yuk-chiziq::before {
+    animation-duration: 2.5s;
+  }
+}
+.ue-map-chip {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px 7px 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--primary-line);
+  box-shadow: var(--shadow);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  animation: ue-chiq 0.18s ease-out;
+}
+.ue-map-chip .nuqta {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-soft);
+  animation: ue-puls 1.6s ease-in-out infinite;
+}
+.ue-map-chip kbd,
+.ue-root kbd {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+.ue-map-chip button {
+  border: 0;
+  background: var(--surface-3);
+  color: var(--muted);
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ue-map-chip button:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+@keyframes ue-puls {
+  50% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+.ue-hidden-map-bridge {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ArcGIS JS API vidjetlari — qorong'i mavzuda */
+.ue-root[data-theme="dark"] .esri-widget,
+.ue-root[data-theme="dark"] .esri-widget--button,
+.ue-root[data-theme="dark"] .esri-attribution {
+  background-color: var(--surface) !important;
+  color: var(--text) !important;
+}
+.ue-root[data-theme="dark"] .esri-widget--button:hover {
+  background-color: var(--surface-3) !important;
+}
+.ue-root[data-theme="dark"] .esri-attribution a {
+  color: var(--muted) !important;
+}
+.ue-root .esri-ui-corner .esri-component {
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.ue-root .esri-view-surface:focus::after {
+  outline: none !important;
+}
+
+/* --- o'ng panel */
+.ue-right {
+  width: 352px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.ue-right-tabs {
+  display: flex;
+  gap: 2px;
+  margin: 10px 12px 0;
+  padding: 3px;
+  background: var(--surface-3);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.ue-right-tabs button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+.ue-right-tabs button:hover {
+  color: var(--text);
+}
+.ue-right-tabs button.faol {
+  background: var(--surface);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--border);
+}
+.ue-right-body {
+  flex: 1;
+  overflow: auto;
+  padding: 14px;
+}
+
+/* ====================================================================== panel ichidagi elementlar */
+.ue-field {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.ue-input,
+.ue-field select,
+.ue-field input,
+.ue-tahrir-forma input,
+.ue-tahrir-forma select {
+  height: 36px;
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 450;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.ue-field select,
+.ue-tahrir-forma select {
+  appearance: none;
+  padding-right: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b98aa' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.ue-field select:focus,
+.ue-field input:focus,
+.ue-tahrir-forma input:focus,
+.ue-tahrir-forma select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--ring);
+}
+.ue-tavsif {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: var(--r);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  gap: 9px;
+}
+.ue-tavsif .ue-ic {
+  color: var(--primary);
+  margin-top: 1px;
+}
+.ue-blok {
+  margin-bottom: 12px;
+}
+.ue-blok-nomi {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 650;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.ue-blok-nomi .soni {
+  margin-left: auto;
+  color: var(--faint);
+  font-weight: 600;
+}
+.ue-rol-nuqta {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.ue-nuqta-list {
+  display: grid;
+  gap: 5px;
+}
+.ue-nuqta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  padding: 6px 6px 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.ue-nuqta span:first-child {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 550;
+}
+.ue-nuqta .kv {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.ue-nuqta button {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--faint);
+}
+.ue-nuqta button:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+.ue-nuqta.bosh-n {
+  border-left-color: var(--success);
+}
+.ue-nuqta.tosiq-n {
+  border-left-color: var(--danger);
+}
+.ue-nuqta.gacha-n {
+  border-left-color: var(--violet);
+}
+.ue-bosh-blok {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--border-strong);
+  color: var(--faint);
+  font-size: 12px;
+}
+.ue-natija {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: var(--r);
+  background: linear-gradient(160deg, var(--primary-soft), transparent 80%);
+  border: 1px solid var(--primary-line);
+}
+.ue-natija-sarlavha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+.ue-natija-sarlavha .ue-ic {
+  color: var(--success);
+}
+.ue-natija-raqamlar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.ue-natija-raqamlar div {
+  font-size: 11.5px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.ue-natija-raqamlar b {
+  display: block;
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--text);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.ue-izoh {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 4px 0 2px;
+}
+.ue-muted {
+  color: var(--muted);
+}
+.ue-bosh-holat {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 36px 16px;
+  color: var(--muted);
+}
+.ue-bosh-holat .ic {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.ue-bosh-holat b {
+  color: var(--text);
+  font-size: 14px;
+}
+.ue-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* --- obyekt kartasi */
+.ue-obyekt-bosh {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.ue-obyekt-ic {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.ue-attr-title {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+.ue-attr-tur {
+  color: var(--muted);
+  margin: 2px 0 8px;
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.ue-obyekt-bosh .ue-attr-tur {
+  margin-bottom: 0;
+}
+.ue-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--surface-3);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.ue-tag.kv {
+  color: #fff;
+}
+.ue-tag.mahalliy {
+  background: var(--accent-soft);
+  color: var(--warning);
+}
+.ue-attr-tugmalar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 14px;
+}
+.ue-attr-tugmalar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 550;
+}
+.ue-attr-tugmalar button .ue-ic {
+  color: var(--muted);
+}
+.ue-attr-tugmalar button:hover {
+  border-color: var(--primary-line);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.ue-attr-tugmalar button:hover .ue-ic {
+  color: var(--primary);
+}
+.ue-attr-tugmalar button.tahrir-btn {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+.ue-attr-tugmalar button.tahrir-btn .ue-ic {
+  color: var(--on-primary);
+}
+.ue-attr-tugmalar button.tahrir-btn:hover {
+  background: var(--primary-hover);
+  color: var(--on-primary);
+}
+.ue-attr-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.ue-attr-table th,
+.ue-attr-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.ue-attr-table tr:last-child th,
+.ue-attr-table tr:last-child td {
+  border-bottom: 0;
+}
+.ue-attr-table th {
+  text-align: left;
+  color: var(--muted);
+  font-weight: 550;
+  width: 42%;
+  background: var(--surface-2);
+}
+.ue-attr-table td {
+  word-break: break-word;
+}
+.ue-root .gid {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  word-break: break-all;
+}
+.ue-ogoh,
+.ue-ogoh-matn {
+  color: var(--warning);
+}
+.ue-ogoh {
+  display: flex;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--warning-soft);
+  font-size: 12px;
+}
+.ue-ogoh-matn {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* --- tahrir formasi */
+.ue-tahrir-forma {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+.ue-tahrir-forma .ue-forma-qator,
+.ue-tahrir-forma label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.ue-tahrir-forma .ue-forma-qator.ozgargan,
+.ue-tahrir-forma label.ozgargan {
+  color: var(--primary);
+}
+.ue-tahrir-forma label.ozgargan input,
+.ue-tahrir-forma label.ozgargan select {
+  border-color: var(--primary);
+  background-color: var(--primary-soft);
+}
+.ue-tahrir-tugmalar {
+  position: sticky;
+  bottom: -14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 0 14px;
+  margin-top: 4px;
+  background: linear-gradient(to bottom, transparent, var(--surface) 22%);
+}
+.ue-tahrir-tugmalar .ue-tahrir-xato {
+  flex: 1 0 100%;
+}
+.ue-tahrir-tugmalar .ue-btn.primary {
+  flex: 1;
+}
+.ue-tahrir-xato {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--danger-line);
+  background: var(--danger-soft);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  font-size: 12px;
+  margin: 10px 0;
+}
+.ue-tahrir-xato .sarlavha {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.ue-tahrir-xato .sarlavha .ue-ic {
+  color: var(--danger);
+  margin-top: 1px;
+}
+.ue-tahrir-xato .sarlavha b {
+  color: var(--danger);
+}
+.ue-tahrir-xato ul {
+  margin: 8px 0 4px;
+  padding-left: 18px;
+}
+.ue-tahrir-xato li {
+  margin-bottom: 4px;
+}
+.ue-tahrir-xato button {
+  margin-top: 6px;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* --- tahrir rejimlari */
+.ue-rejim-karta {
+  border: 1px solid var(--primary-line);
+  background: var(--primary-soft);
+  border-radius: var(--r);
+  padding: 12px 14px;
+}
+.ue-rejim-karta .sarlavha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--primary);
+}
+.ue-rejim-karta ol {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.ue-rejim-karta li + li {
+  margin-top: 3px;
+}
+.ue-bolim {
+  margin-top: 14px;
+}
+.ue-bolaklar {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+}
+.ue-bolaklar div {
+  flex: 1;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.ue-bolaklar b {
+  display: block;
+  font-size: 19px;
+  color: var(--text);
+  font-weight: 650;
+}
+.ue-tur-tanlov {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+.ue-tur-tanlov button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 550;
+  font-size: 12px;
+}
+.ue-tur-tanlov button.faol {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+  color: var(--primary);
+}
+.ue-ulanish-royxat,
+.ue-ochir-royxat {
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  display: grid;
+  gap: 5px;
+}
+.ue-ulanish-royxat li {
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--success-soft);
+  border-left: 3px solid var(--success);
+}
+.ue-ulanish-royxat li.otadi {
+  border-left-color: var(--warning);
+  background: var(--warning-soft);
+}
+.ue-ochir-royxat {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.ue-ochir-royxat li {
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.ue-ochir-dialog > .sarlavha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--danger);
+  margin-bottom: 4px;
+}
+
+/* --- tarix */
+.ue-tarix-bosh {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.ue-blok-nomi.katta {
+  font-size: 13.5px;
+  margin: 0;
+}
+.ue-tarix-list {
+  position: relative;
+  display: grid;
+  gap: 8px;
+}
+.ue-tarix-guruh {
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 9px 12px 9px 14px;
+  border-radius: var(--r);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.ue-tarix-guruh::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--primary);
+}
+.ue-tarix-guruh:hover {
+  border-color: var(--primary-line);
+  box-shadow: var(--shadow-sm);
+}
+.ue-tarix-guruh.bekor {
+  opacity: 0.6;
+}
+.ue-tarix-guruh.bekor::before {
+  background: var(--border-strong);
+}
+.ue-tarix-guruh.ortga::before {
+  background: var(--warning);
+}
+.ue-tarix-guruh.mahalliy::before {
+  background: var(--accent);
+}
+.ue-tarix-yuqori {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.ue-tarix-yuqori .amal {
+  font-weight: 650;
+}
+.ue-tarix-vaqt {
+  font-size: 11px;
+  color: var(--faint);
+  margin-left: auto;
+  white-space: nowrap;
+}
+.ue-tarix-guruh .nom {
+  font-weight: 600;
+  margin-top: 4px;
+}
+.ue-tarix-guruh .q {
+  margin-top: 3px;
+  word-break: break-word;
+  color: var(--muted);
+}
+.ue-tarix-guruh .q s {
+  color: var(--danger);
+}
+.ue-tarix-guruh .q ins {
+  color: var(--success);
+  text-decoration: none;
+  font-weight: 550;
+}
+.ue-tarix-kim {
+  margin-top: 6px;
+  color: var(--faint);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ====================================================================== jadval */
+/* xarita ostida, pastdan ochiladi va xaritani yuqoriga surib toraytiradi */
+.ue-table-qobiq {
+  flex: 0 0 auto;
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 4;
+  transition: height var(--ue-harakat);
+}
+.ue-table-qobiq.ochiq {
+  height: 250px;
+}
+.ue-table-panel {
+  height: 250px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ue-contents,
+  .ue-contents-ichki,
+  .ue-side-rail,
+  .ue-table-qobiq,
+  .ue-map-chip,
+  .ue-yuk-pill,
+  .ue-yuk-chiziq {
+    transition: none !important;
+  }
+}
+.ue-table-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 8px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+.ue-jadval-nomi {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.ue-jadval-nomi .ue-ic {
+  color: var(--primary);
+}
+.ue-jadval-nomi .ue-soni {
+  font-weight: 650;
+}
+.ue-table-body {
+  flex: 1;
+  overflow: auto;
+}
+.ue-table-body table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+}
+.ue-table-body th,
+.ue-table-body td {
+  border-bottom: 1px solid var(--border);
+  padding: 6px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+.ue-table-body th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-weight: 650;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  user-select: none;
+}
+.ue-table-body th:hover {
+  color: var(--text);
+}
+.ue-table-body tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--surface-2) 55%, transparent);
+}
+.ue-table-body tbody tr:hover td {
+  background: var(--surface-3);
+  cursor: pointer;
+}
+.ue-table-body tbody tr.selected td {
+  background: var(--primary-soft);
+}
+.ue-table-body tbody tr.selected td:first-child {
+  box-shadow: inset 3px 0 0 var(--primary);
+}
+.ue-table-body td.raqam {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.ue-table-body tr.yana td {
+  text-align: center;
+  color: var(--muted);
+  padding: 12px;
+  background: transparent !important;
+}
+.ue-root .tartib {
+  font-size: 9px;
+  color: var(--primary);
+}
+
+/* ====================================================================== holat qatori */
+.ue-status {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 30px;
+  padding: 0 8px;
+  background: var(--status);
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11.5px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.ue-status > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+}
+.ue-status > span + span:not(.ue-flex)::before {
+  content: "";
+  width: 1px;
+  height: 14px;
+  background: var(--border);
+  margin-right: 10px;
+  margin-left: -10px;
+}
+.ue-status .ue-ic {
+  color: var(--faint);
+}
+.ue-status .nuqta {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--faint);
+  flex-shrink: 0;
+}
+.ue-status .ok .nuqta {
+  background: var(--success);
+  box-shadow: 0 0 0 3px var(--success-soft);
+}
+.ue-status .yoq .nuqta {
+  background: var(--danger);
+  box-shadow: 0 0 0 3px var(--danger-soft);
+}
+.ue-status .kut {
+  color: var(--warning);
+  font-weight: 600;
+}
+.ue-status .kut .ue-ic {
+  color: var(--warning);
+}
+.ue-status .mono {
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.ue-flex {
+  flex: 1;
+}
+
+/* ====================================================================== xabar (toast) */
+.ue-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 44px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 260px;
+  max-width: min(640px, 80%);
+  padding: 11px 14px;
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  z-index: 60;
+  font-weight: 500;
+  animation: ue-chiq 0.2s ease-out;
+}
+.ue-toast .ue-ic {
+  color: var(--success);
+  margin-top: 1px;
+}
+.ue-toast.xato {
+  border-color: var(--danger-line);
+}
+.ue-toast.xato .ue-ic {
+  color: var(--danger);
+}
+.ue-toast::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--success);
+}
+.ue-toast.xato::before {
+  background: var(--danger);
+}
+@keyframes ue-chiq {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ====================================================================== moslashuvchanlik */
+@container (max-width: 1280px) {
+  .ue-dd-btn.til,
+  .ue-dd-btn.mavzu {
+    width: auto;
+  }
+  .ue-dd-btn.mavzu .ue-dd-qiymat {
+    display: none;
+  }
+  .ue-brand-matn span,
+  .ue-men-matn {
+    display: none;
+  }
+  .ue-user {
+    padding: 3px;
+  }
+  .ue-right {
+    width: 320px;
+  }
+  .ue-body {
+    --ue-chap-w: 224px;
+  }
+}
+@container (max-width: 1080px) {
+  .ue-tabs button span {
+    display: none;
+  }
+  .ue-tabs button {
+    padding: 0 11px;
+  }
+}

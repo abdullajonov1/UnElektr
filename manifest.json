@@ -1,0 +1,23 @@
+{
+  "name": "UnElektr",
+  "label": "UnElektr — Elektr tarmog'i",
+  "type": "widget",
+  "version": "1.0.0",
+  "exbVersion": "1.16.0",
+  "author": "abdullajonov1",
+  "description": "Elektr tarmog'i: Feature Layer asosida trace, tekshiruv va tahrir (applyEdits). Mustaqil — tashqi server kerak emas.",
+  "copyright": "",
+  "license": "",
+  "properties": {
+    "supportAutoSize": false
+  },
+  "translatedLocales": ["en", "uz", "ru"],
+  "defaultSize": {
+    "width": 1280,
+    "height": 800
+  },
+  "dependency": ["jimu-arcgis"],
+  "supportInlineEditing": true,
+  "hasSettingPage": true,
+  "useDataSources": true
+}
